@@ -16,18 +16,18 @@ process.stdout.write(`Web server started and running at http://localhost:${portN
 process.stdout.write(`Stop to shutdown the server: `);
 
 //exits on reading "stop"
-process.stdin.on("readable", function () {
-    let userInput = process.stdin.read();
-    if (userInput !== null) {
-        let command = userInput.trim();
-        if (command === "stop") {
-            console.log("Shutting down the server");
-            process.exit(0);  /* exiting */
-        }
-    } else {
-        console.log(`Invalid commnad: ${command}`);
-    }
-});
+// process.stdin.on("readable", function () {
+//     let userInput = process.stdin.read();
+//     if (userInput !== null) {
+//         let command = userInput.trim();
+//         if (command === "stop") {
+//             console.log("Shutting down the server");
+//             process.exit(0);  /* exiting */
+//         }
+//     } else {
+//         console.log(`Invalid command: ${command}`);
+//     }
+// });
 
 require("dotenv").config({ path: path.resolve(__dirname, '.env') });
 const userName = process.env.MONGO_DB_USERNAME;
