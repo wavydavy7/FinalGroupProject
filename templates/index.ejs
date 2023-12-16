@@ -1,0 +1,88 @@
+<!-- DO NOT MODIFY THIS FILE -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>index</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+	<h1 style = "text-align: center;">English To Spanish FlashCards! <img src = "../nelsonpaduaperez.png"> </h1>
+	<div style = "margin-top: 5rem; margin-bottom: 5rem; border: 1px solid black; padding:2rem;">
+	<h1><i>Translator</i></h1>
+	<div class = "flex">
+	<div>
+		<h3>English	🇺🇸</h3>
+		<textarea id="sourceText"></textarea>
+	</div>
+	<div>
+		<h3>Spanish 🇪🇸</h3>
+		<textarea id="resultText"></textarea>
+	</div>
+	</div>
+
+	
+	<br>
+	<input id="button" type="button" value="Translate" >
+
+</div>
+<div style = "margin-top: 5rem; margin-bottom: 5rem; border: 1px solid black; padding:2rem;">
+	<h1><i>Flash Card Generator</i></h1>
+	<p>To create the flashcard, use the translator above and copy and paste the results into the form below:</p>
+	<form action="/" method="post" onsubmit="appConfirm()">
+		<fieldset style= "width: 50rem;">
+			<label><strong>English Word: </strong><input type="text" name="engWord" id = "eng" val = "" size="23"></label>
+			<br>
+			<br>
+			<label><strong>Spanish Word: </strong><input type="text" name="spWord" id = "sp" val = "" size="23"></label>
+
+		</fieldset>
+		<br>
+		<input type="reset" value="Reset">
+		<input type="submit" value="Submit Application" onclick="return confirm('Are you sure you want to submit your form?');">
+	</form>
+</div>
+<div style = "margin-top: 5rem; margin-bottom: 5rem; border: 1px solid black; padding:2rem;">
+	<h1><i>Quiz Yourself!</i></h1>
+	<p>To look up a flashcard <a href="/lookup">Click Here</a></p>
+
+	<p>To remove all flashcards <a href="/deleteAll">Click Here</a>  </p>
+	
+</div>
+<hr>
+</body>
+<script>
+		document.querySelector("#sourceText").addEventListener("change", (event) => {
+    document.querySelector("#eng").value = event.target.value;
+});
+		$('#button').click(function(){translate();});
+		
+		function translate(){
+  		var sourceText = $('textarea#sourceText').val();
+  		var sourceLang = 'en';
+  		var targetLang = 'es';
+  		console.log(sourceText);
+  
+  		var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="+ sourceLang + "&tl=" + targetLang + "&dt=t&q=" + encodeURI(sourceText);
+  		//console.log(url);
+  
+  	$.getJSON(url, function(data) {
+      	$('textarea#resultText').val(data[0][0][0]);
+    	});
+
+	}
+	</script>
+	<style>
+		.flex{
+			display: flex;
+			flex-direction: row;
+		}
+		body{
+			border: 1rem solid lightblue;
+		}
+
+	</style>
+
+</html>
